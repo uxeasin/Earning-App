@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visa Agency Panel</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">VA</div>
+      <div>
+        <h1>Visa Agency Panel</h1>
+        <p class="sub">Client, document &amp; payment tracker</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn ghost" id="exportBtn" title="Download a backup file">Backup</button>
+      <label class="btn ghost" title="Restore from a backup file">
+        Restore<input type="file" id="importInput" accept="application/json" hidden>
+      </label>
+      <button class="btn primary" id="newSetBtn">+ New client</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats" id="stats"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Visa categories</h2>
+        <span class="pill" id="catTotal"></span>
+      </div>
+      <div class="cats" id="cats"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Money</h2>
+      </div>
+      <div class="money" id="money"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Clients</h2>
+        <div class="filters">
+          <input type="search" id="search" placeholder="Search name, phone, passport…">
+          <select id="statusFilter"></select>
+          <select id="typeFilter"></select>
+        </div>
+      </div>
+      <div id="list" class="list"></div>
+    </section>
+
+    <p class="footnote">Data is saved in this browser only. Use <b>Backup</b> regularly to keep a copy.</p>
+  </main>
+
+  <dialog id="setDialog">
+    <form id="setForm" method="dialog">
+      <h2 id="dialogTitle">New client</h2>
+
+      <div class="grid2">
+        <label>Client / group name<input name="name" required></label>
+        <label>Phone<input name="phone" inputmode="tel"></label>
+        <label>Visa type<select name="visaType"></select></label>
+        <label>Status<select name="status"></select></label>
+        <label>Appointment date<input name="appointmentDate" type="date"></label>
+        <label>Appointment time<input name="appointmentTime" type="time"></label>
+      </div>
+
+      <fieldset>
+        <legend>Applicants (files)</legend>
+        <div id="filesBox"></div>
+        <button type="button" class="btn ghost small" id="addFileBtn">+ Add applicant</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Payment</legend>
+        <div class="grid2">
+          <label>IVAC fee, total (BDT)<input name="ivacFee" type="number" min="0" step="1"></label>
+          <label>Service fee (BDT)<input name="serviceFee" type="number" min="0" step="1"></label>
+          <label>Received from client (BDT)<input name="received" type="number" min="0" step="1"></label>
+          <label>Method<select name="method"></select></label>
+          <label class="span2">Transaction ID<input name="txnId"></label>
+        </div>
+      </fieldset>
+
+      <label>Notes<textarea name="notes" rows="3"></textarea></label>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn danger" id="deleteBtn">Delete</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="fileRowTpl">
+    <div class="file-row">
+      <input class="f-name" placeholder="Full name">
+      <input class="f-passport" placeholder="Passport no.">
+      <select class="f-role"><option>Primary</option><option>Secondary</option></select>
+      <div class="docs">
+        <label><input type="checkbox" class="d-passport"> Passport</label>
+        <label><input type="checkbox" class="d-form"> Form</label>
+        <label><input type="checkbox" class="d-photo"> Photo</label>
+        <label><input type="checkbox" class="d-support"> Supporting</label>
+      </div>
+      <button type="button" class="btn icon remove" title="Remove">×</button>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
