@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Visa Agency Helper — Options</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>body { width: auto; max-width: 520px; margin: 0 auto; padding: 8px; }</style>
+</head>
+<body>
+  <header>
+    <div class="logo">VA</div>
+    <div><h1>Options</h1><p class="sub">Set the link to your panel</p></div>
+  </header>
+  <main>
+    <label class="field">
+      <span>Your panel link</span>
+      <input id="panelUrl" type="url" placeholder="https://claude.ai/artifact/…">
+    </label>
+    <div class="actions">
+      <button id="saveBtn" class="btn primary">Save</button>
+    </div>
+    <p class="hint" id="saved" hidden>Saved.</p>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Visa Agency Helper</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="logo">VA</div>
+    <div>
+      <h1>Visa Agency Helper</h1>
+      <p class="sub">Prepare an applicant before you book</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="block">
+      <label class="field">
+        <span>Applicant name</span>
+        <input id="applicant" type="text" placeholder="e.g. Abdul Rahman" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>Visa type</span>
+        <select id="visaType">
+          <option value="tourist">Tourist</option>
+          <option value="medical">Medical</option>
+          <option value="student">Student</option>
+          <option value="business">Business</option>
+          <option value="other">Other</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Document checklist</h2>
+        <span class="count" id="count">0 / 0</span>
+      </div>
+      <ul class="checklist" id="checklist"></ul>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <p class="ready" id="ready" hidden>All documents ready — you can start the booking.</p>
+    </section>
+
+    <section class="block">
+      <label class="field">
+        <span>Notes for this applicant</span>
+        <textarea id="notes" rows="3" placeholder="Anything to remember…"></textarea>
+      </label>
+    </section>
+
+    <div class="actions">
+      <button id="resetBtn" class="btn ghost">Clear</button>
+      <button id="openPanelBtn" class="btn primary">Open my panel</button>
+    </div>
+    <p class="hint" id="panelHint" hidden>Set your panel link in <a href="#" id="optionsLink">options</a>.</p>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>
