@@ -36,8 +36,14 @@ function escapeHtml(s) {
 }
 
 // ---------- storage ----------
+// Opened on claude.ai the panel uses the artifact's database; opened as a
+// plain file it falls back to this browser's localStorage.
 
-function load() {
+let sets = [];
+let editingId = null;
+let db = null;
+
+function loadLocal() {
   try {
     const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
     return Array.isArray(data) ? data : [];
@@ -46,16 +52,59 @@ function load() {
   }
 }
 
-function save() {
+function saveLocal() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(sets));
+    return true;
   } catch {
-    alert('Could not save. Browser storage may be full or blocked — download a Backup now.');
+    return false;
   }
 }
 
-let sets = load();
-let editingId = null;
+function showError(msg) {
+  const note = $('#storageNote');
+  note.textContent = msg;
+  note.classList.add('due');
+}
+
+async function storeSet(set) {
+  if (db) {
+    await db.collection('clients').doc(set.id).set(set);
+  } else {
+    const i = sets.findIndex((s) => s.id === set.id);
+    if (i >= 0) sets[i] = set; else sets.push(set);
+    if (!saveLocal()) showError('Could not save. Browser storage may be full or blocked. Download a Backup now.');
+    render();
+  }
+}
+
+async function removeSet(id) {
+  if (db) {
+    await db.collection('clients').doc(id).delete();
+  } else {
+    sets = sets.filter((s) => s.id !== id);
+    saveLocal();
+    render();
+  }
+}
+
+async function connectDb() {
+  if (!window.claude || typeof window.claude.use !== 'function') return;
+  db = await window.claude.use('db');
+  if (!db) return;
+  $('#storageNote').textContent = 'Saved online in your private panel. Backup still gives you a copy on your device.';
+  db.collection('clients').onSnapshot(
+    (snap) => {
+      sets = snap.docs.map((d) => normalize(d.data()));
+      render();
+    },
+    () => showError('Lost connection to saved data. Reload the page.'),
+  );
+}
+
+function normalize(s) {
+  return { ...s, files: Array.isArray(s.files) ? s.files : [] };
+}
 
 // ---------- helpers ----------
 
@@ -70,6 +119,17 @@ function docsComplete(file) {
 function fillSelect(el, options, allLabel) {
   const opts = allLabel ? [{ id: '', label: allLabel }, ...options] : options;
   el.innerHTML = opts.map((o) => `<option value="${o.id}">${escapeHtml(o.label)}</option>`).join('');
+}
+
+function ask(text, okLabel = 'OK') {
+  const dlg = $('#confirmDialog');
+  $('#confirmText').textContent = text;
+  $('#confirmYes').textContent = okLabel;
+  dlg.returnValue = '';
+  dlg.showModal();
+  return new Promise((resolve) => {
+    dlg.addEventListener('close', () => resolve(dlg.returnValue === 'yes'), { once: true });
+  });
 }
 
 // ---------- rendering ----------
@@ -216,30 +276,50 @@ function readForm() {
 
 // ---------- backup ----------
 
-function exportData() {
-  const blob = new Blob([JSON.stringify(sets, null, 2)], { type: 'application/json' });
+async function exportData() {
+  const filename = `visa-panel-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  const json = JSON.stringify(sets, null, 2);
+  const downloads = window.claude && window.claude.use ? await window.claude.use('downloads') : null;
+  if (downloads) {
+    try { await downloads.save({ filename, data: json }); } catch { /* declined or unavailable */ }
+    return;
+  }
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `visa-panel-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+  a.download = filename;
   a.click();
   URL.revokeObjectURL(a.href);
 }
 
 function importData(file) {
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = async () => {
+    let data;
     try {
-      const data = JSON.parse(reader.result);
+      data = JSON.parse(reader.result);
       if (!Array.isArray(data)) throw new Error('not a list');
-      if (!confirm(`Replace current data (${sets.length} clients) with backup (${data.length} clients)?`)) return;
-      sets = data.map((s) => ({ ...s, files: Array.isArray(s.files) ? s.files : [] }));
-      save();
-      render();
     } catch {
-      alert('This file is not a valid backup.');
+      showError('That file is not a valid backup.');
+      return;
+    }
+    const ok = await ask(`Replace current data (${sets.length} clients) with the backup (${data.length} clients)?`, 'Replace');
+    if (!ok) return;
+    const incoming = data.map((s) => normalize({ ...s, id: s.id || newId() }));
+    if (db) {
+      const keep = new Set(incoming.map((s) => s.id));
+      for (const s of sets) if (!keep.has(s.id)) await removeSet(s.id);
+      for (const s of incoming) await storeSet(s);
+    } else {
+      sets = incoming;
+      saveLocal();
+      render();
     }
   };
   reader.readAsText(file);
+}
+
+function newId() {
+  return crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2);
 }
 
 // ---------- wiring ----------
@@ -256,26 +336,31 @@ function init() {
   $('#addFileBtn').addEventListener('click', () => addFileRow());
   $('#cancelBtn').addEventListener('click', () => $('#setDialog').close());
 
-  $('#setForm').addEventListener('submit', (e) => {
+  $('#setForm').addEventListener('submit', async (e) => {
     const data = readForm();
     if (!data.name) { e.preventDefault(); return; }
     const now = Date.now();
-    if (editingId) {
-      const i = sets.findIndex((s) => s.id === editingId);
-      sets[i] = { ...sets[i], ...data, updatedAt: now };
-    } else {
-      sets.push({ id: crypto.randomUUID ? crypto.randomUUID() : String(now), ...data, createdAt: now, updatedAt: now });
+    const prev = sets.find((s) => s.id === editingId);
+    const set = prev
+      ? { ...prev, ...data, updatedAt: now }
+      : { id: newId(), ...data, createdAt: now, updatedAt: now };
+    try {
+      await storeSet(set);
+    } catch {
+      showError('Could not save that client. Check your connection and try again.');
     }
-    save();
-    render();
   });
 
-  $('#deleteBtn').addEventListener('click', () => {
-    if (!editingId || !confirm('Delete this client? This cannot be undone.')) return;
-    sets = sets.filter((s) => s.id !== editingId);
-    save();
+  $('#deleteBtn').addEventListener('click', async () => {
+    if (!editingId) return;
+    const id = editingId;
     $('#setDialog').close();
-    render();
+    if (!(await ask('Delete this client? This cannot be undone.', 'Delete'))) return;
+    try {
+      await removeSet(id);
+    } catch {
+      showError('Could not delete that client. Try again.');
+    }
   });
 
   $('#list').addEventListener('click', (e) => {
@@ -297,7 +382,9 @@ function init() {
     e.target.value = '';
   });
 
+  sets = loadLocal().map(normalize);
   render();
+  connectDb();
 }
 
 init();

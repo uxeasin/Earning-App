@@ -54,7 +54,7 @@
       <div id="list" class="list"></div>
     </section>
 
-    <p class="footnote">Data is saved in this browser only. Use <b>Backup</b> regularly to keep a copy.</p>
+    <p class="footnote" id="storageNote">Data is saved in this browser only. Use <b>Backup</b> regularly to keep a copy.</p>
   </main>
 
   <dialog id="setDialog">
@@ -94,6 +94,17 @@
         <span class="spacer"></span>
         <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
         <button type="submit" class="btn primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirmDialog">
+    <form method="dialog">
+      <p id="confirmText"></p>
+      <div class="dialog-actions">
+        <span class="spacer"></span>
+        <button value="no" class="btn ghost">Cancel</button>
+        <button value="yes" class="btn primary" id="confirmYes">OK</button>
       </div>
     </form>
   </dialog>

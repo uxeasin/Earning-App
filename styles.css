@@ -15,7 +15,8 @@
   --radius: 14px;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --bg: #14131b;
     --card: #1e1c28;
     --text: #ecebf3;
@@ -30,6 +31,22 @@
     --red: #ff7a6b;
     --blue: #6aa8ff;
   }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #14131b;
+  --card: #1e1c28;
+  --text: #ecebf3;
+  --muted: #a19eb5;
+  --line: #2f2c3d;
+  --brand: #9b76ff;
+  --brand-soft: #29213f;
+  --green: #4cd68b;
+  --green-soft: #173024;
+  --amber: #f0a64a;
+  --amber-soft: #33271a;
+  --red: #ff7a6b;
+  --blue: #6aa8ff;
 }
 * { box-sizing: border-box; }
 body {
@@ -146,6 +163,8 @@ dialog {
   width: min(720px, calc(100vw - 24px)); max-height: calc(100vh - 24px);
   background: var(--card); color: var(--text);
 }
+#confirmDialog form { max-width: 420px; }
+#confirmDialog p { margin: 0; }
 dialog::backdrop { background: rgba(0,0,0,.45); }
 dialog form { padding: 18px; display: grid; gap: 12px; }
 label { display: grid; gap: 4px; font-size: .85rem; font-weight: 600; color: var(--muted); }
