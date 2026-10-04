@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notemind Motion</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="viewport">
+    <div class="stage" id="stage">
+      <div class="world" id="world">
+
+        <!-- ============ Phone 1 · Splash (Figma 13:2671) ============ -->
+        <section class="phone" id="phone1" style="left:105px">
+          <div class="statusbar" data-sb></div>
+
+          <div class="logo-row" data-logo>
+            <img class="logo-icon" src="assets/logo-icon.png" alt="" />
+            <span class="wordmark" data-split="chars">Notemind</span>
+          </div>
+
+          <p class="tagline" data-tagline>CAPTURE     •     ORGANIZE     •     CREATE</p>
+
+          <div class="notebook" data-notebook>
+            <img src="assets/notebook.png" alt="Notemind notebook" />
+          </div>
+
+          <h1 class="splash-title" data-split="words">Think Less. Note More</h1>
+          <p class="splash-sub" data-splash-sub>Capture your thoughts, organise your notes, and let AI turn them into clear, useful insights.</p>
+
+          <div class="wait" data-wait>
+            <div class="wait-fill" data-wait-fill></div>
+            <p class="wait-label">Wait for (<span class="roll"><span class="roll-col" data-roll><b>7s</b><b>6s</b><b>5s</b></span></span>)</p>
+          </div>
+          <p class="almost" data-almost>Almost there</p>
+
+          <div class="home-indicator"></div>
+        </section>
+
+        <!-- ============ Phone 2 · Home (Figma 13:2804) ============ -->
+        <section class="phone" id="phone2" style="left:585px">
+          <div class="statusbar" data-sb></div>
+          <div class="home-slot"></div>
+          <div class="home-indicator"></div>
+        </section>
+
+        <!-- ============ Phone 3 · Artwork (Figma 13:2899) ============ -->
+        <section class="phone" id="phone3" style="left:1065px">
+          <div class="home-slot"></div>
+          <div class="frost" data-frost></div>
+
+          <div class="canvas" data-canvas>
+            <div class="dots" data-dots></div>
+            <div class="canvas-tools">
+              <span class="cbtn" data-ctool><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M15.891 3.047a3.578 3.578 0 1 1 5.061 5.06L20.061 9a3.25 3.25 0 0 1-.005 4.592l-1.783 1.783a.75.75 0 1 1-1.061-1.06l1.783-1.784A1.75 1.75 0 0 0 19 10.06l-9.998 10a3.1 3.1 0 0 1-1.477.825L2.924 21.98a.75.75 0 0 1-.904-.903l1.096-4.602c.133-.559.419-1.07.825-1.476z"/></svg></span>
+              <span class="cbtn" data-ctool><svg viewBox="0 0 24 24" width="20" height="20"><g fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="M16.422 7c.26-1.182 1.09-3.196.118-4.268C15.877 2 14.629 2 12.134 2h-.268c-2.495 0-3.742 0-4.406.732c-.972 1.072-.143 3.086.12 4.268m10.427 7.653l-4.22 5.705C12.977 21.453 12.573 22 12 22s-.977-.547-1.787-1.642l-4.22-5.705c-.676-.915-1.015-1.373-.992-1.86s.475-.998 1.379-2.02C7.25 9.790 7.579 8.770 7.579 7h8.843c0 1.769.327 2.789 1.198 3.773c.904 1.022 1.356 1.532 1.379 2.020c.023.487-.316.945-.992 1.860"/><path fill="none" stroke="#f7f7f7" d="M13.5 14c-.441.318-.954.5-1.5.5m0 0a2.55 2.55 0 0 1-1.5-.5m1.5.5V22"/></g></svg></span>
+              <span class="cbtn" data-ctool><svg viewBox="0 0 24 24" width="19.66" height="19.66"><rect x="8.5" y="2" width="7" height="13" rx="3.5" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>
+            </div>
+            <span class="cbtn cbtn-enlarge" data-ctool><svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15 9l5-5m0 0v4m0-4h-4M9 15l-5 5m0 0v-4m0 4h4"/></svg></span>
+            <span class="done" data-done><svg viewBox="0 0 24 24" width="24" height="24" data-done-check><path fill="currentColor" d="m9 16.2l-3.5-3.5a.984.984 0 0 0-1.4 0a.984.984 0 0 0 0 1.4l4.19 4.19c.39.39 1.02.39 1.41 0L20.3 7.7a.984.984 0 0 0 0-1.4a.984.984 0 0 0-1.4 0z"/></svg></span>
+          </div>
+
+          <div class="statusbar" data-sb></div>
+          <div class="home-indicator"></div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" id="controls">
+    <button type="button" id="btnPlay" aria-label="Pause">
+      <svg viewBox="0 0 24 24" width="18" height="18" class="i-pause"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" width="18" height="18" class="i-play"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor"/></svg>
+    </button>
+    <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Timeline" />
+    <button type="button" id="btnReplay" aria-label="Replay">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 1 0 2.34-5.66M4 4v4h4"/></svg>
+    </button>
+  </div>
+
+  <!-- Home screen markup, cloned into phones 2 and 3 -->
+  <template id="homeTpl">
+    <div class="home">
+      <div class="h-header">
+        <span class="avatar" data-h="avatar"><img src="assets/avatar.png" alt="" /></span>
+        <span class="round-btn" data-h="menu"><svg viewBox="0 0 16 16" width="24" height="24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m2.75 12.25h10.5m-10.5-4h10.5m-10.5-4h10.5"/></svg></span>
+      </div>
+
+      <p class="h-title" data-h="title"><span class="w light">Capture</span> <span class="w">More.</span><br /><span class="w light">Remember</span> <span class="w">Better.</span></p>
+
+      <div class="side-pill" data-h="pill">
+        <span class="pill-btn" data-h="pillbtn"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20.262 2.435a1.01 1.01 0 0 1 .944.454c.94 1.412.768 3.478-.285 4.795l-.002-.001c-.264.342-.647.656-1.012.919a16 16 0 0 1-1.499.933c-.443.246-.91.484-1.363.698c.916.044 1.972.02 3.039-.136q-.06.151-.125.303c-.552 1.263-1.328 2.54-2.424 3.636c-2.05 2.05-4.74 2.992-6.843 3.43a19 19 0 0 1-2.882.378c-.032.247-.067.533-.102.83c-.11.928-.17 1.9-.208 2.327c-.047.539-.448 1-1 1a1 1 0 0 1-1-1c0-.571.117-1.67.222-2.560c.204-1.732.445-3.427.986-5.090c.624-1.920 1.750-4.380 3.757-6.386c3.933-3.933 9.650-4.516 9.797-4.530M5 1a1 1 0 0 1 .946.677l.13.378c.3.879.99 1.57 1.87 1.87l.377.129a1 1 0 0 1 0 1.892l-.378.13c-.879.3-1.57.99-1.87 1.87l-.129.377a1 1 0 0 1-1.892 0l-.13-.378a3 3 0 0 0-1.870-1.870l-.377-.129a1 1 0 0 1 0-1.892l.378-.13c.879-.3 1.570-.99 1.870-1.870l.129-.377A1 1 0 0 1 5 1"/></svg></span>
+        <span class="pill-btn" data-h="pillbtn"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 3H4.99C3.89 3 3 3.9 3 5l.01 14c0 1.1.89 2 1.99 2h10l6-6V5c0-1.1-.9-2-2-2M8 8h8c.55 0 1 .45 1 1s-.45 1-1 1H8c-.55 0-1-.45-1-1s.45-1 1-1m3 6H8c-.55 0-1-.45-1-1s.45-1 1-1h3c.55 0 1 .45 1 1s-.45 1-1 1m3 5.5V15c0-.55.45-1 1-1h4.5z"/></svg></span>
+      </div>
+
+      <div class="tabs">
+        <span class="tab tab-on" data-h="tabNotes">Notes</span>
+        <span class="tab tab-off" data-h="tabArt">Artwork</span>
+      </div>
+
+      <div class="card card-back" data-h="cardBack"></div>
+      <div class="card card-mid" data-h="cardMid"></div>
+      <div class="card card-front" data-h="cardFront">
+        <div class="toolbar" data-h="toolbar">
+          <span class="tbtn" data-h="tbtn"><svg viewBox="0 0 24 24" width="19.65" height="19.65" style="transform:rotate(90deg)"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 6a3 3 0 1 1-6 0a3 3 0 0 1 6 0Zm0 12a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 8L3 19m12-3l-4-4M3 5l5.5 5"/></g></svg></span>
+          <span class="tbtn" data-h="tbtn"><svg viewBox="0 0 24 24" width="19.65" height="19.65"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M8 2v4m4-4v4m4-4v4"/><rect width="16" height="18" x="4" y="4" rx="3"/><path d="M8 10h6m-6 4h8m-8 4h5"/></g></svg></span>
+          <span class="tbtn" data-h="tbtn"><svg viewBox="0 0 24 24" width="22.66" height="22.66"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"><rect width="7" height="12.5" x="8.5" y="2.5" rx="3.5"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5v4"/></g></svg></span>
+          <span class="tbtn" data-h="tbtn"><svg viewBox="0 0 24 24" width="19.65" height="19.65"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14 19l-2.893-8.252C9.763 6.916 9.092 5 8 5s-1.763 1.916-3.107 5.748L2 19m2.5-7h7m10.47 1.94v4.5m0-4.5c.046-.824.048-1.45-.05-1.963c-.234-1.206-1.494-1.933-2.714-2.081c-1.168-.142-2.104.159-3.052 1.54m5.815 2.503h-2.843c-.437 0-.878.021-1.299.138c-2.573.716-2.384 4.323.196 4.768c.287.05.58.07.87.058c.677-.03 1.302-.358 1.84-.773c.627-.486 1.236-1.165 1.236-2.19z"/></svg></span>
+        </div>
+        <span class="tbtn tbtn-enlarge" data-h="enlarge"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15 9l5-5m0 0v4m0-4h-4M9 15l-5 5m0 0v-4m0 4h4"/></svg></span>
+
+        <div class="hl-bars">
+          <i style="top:87.44px;width:311.45px"></i>
+          <i style="top:111.02px;width:337px"></i>
+          <i style="top:134.6px;width:311.45px"></i>
+          <i style="top:158.18px;width:352.72px"></i>
+          <i style="top:181.76px;width:331.1px"></i>
+          <i style="top:205.34px;width:315.38px"></i>
+          <i style="top:228.92px;width:241.69px"></i>
+        </div>
+        <div class="note-text">
+          <span class="ln"><b>The Sprint Design Process</b> <em>is a quick, five-day</em></span>
+          <span class="ln"><em>method for teams to prototype and test ideas. Each</em></span>
+          <span class="ln"><em>day focuses on a key phase: understanding the</em></span>
+          <span class="ln"><em>problem, sketching solutions, selecting the best ideas,</em></span>
+          <span class="ln"><em>prototyping, and testing with users. This approach</em></span>
+          <span class="ln"><b>encourages collaboration</b> <em>and</em> <b>rapid feedback</b><em>,</em></span>
+          <span class="ln"><em>enabling effective</em> <b>design iterations.</b></span>
+        </div>
+        <span class="handle handle-start" data-h="hStart"></span>
+        <span class="handle handle-end" data-h="hEnd"></span>
+
+        <div class="card-foot">
+          <span class="tap" data-h="tap"><span class="caret" data-h="caret"></span>Tap here to continue</span>
+          <span class="ai-btn" data-h="ai"><svg viewBox="0 0 24 24" width="19.65" height="19.65" data-h="aiIcon"><path fill="currentColor" d="M19 19a1 1 0 1 1 0 2h-7a1 1 0 1 1 0-2zM16.096 4.368a2.5 2.5 0 0 1 3.536 3.535L8.735 18.8q-.192.191-.44.305l-3.804 1.729c-.842.383-1.708-.485-1.325-1.326l1.73-3.804q.112-.248.304-.44zM6 1a1 1 0 0 1 .946.677l.13.378c.3.879.99 1.57 1.87 1.87l.377.129a1 1 0 0 1 0 1.892l-.378.13c-.879.3-1.57.99-1.87 1.87l-.129.377a1 1 0 0 1-1.892 0l-.13-.378a3 3 0 0 0-1.87-1.870l-.377-.129a1 1 0 0 1 0-1.892l.378-.13c.879-.3 1.57-.99 1.87-1.870l.129-.377A1 1 0 0 1 6 1"/></svg>AI Edit</span>
+        </div>
+      </div>
+
+      <div class="image-note" data-h="imgNote">
+        <p class="in-title">Image Note</p>
+        <p class="in-sub">5 Image Notes Saved</p>
+      </div>
+      <img class="image-stack" data-h="imgStack" src="assets/image-stack.png" alt="" />
+    </div>
+  </template>
+
+  <template id="statusTpl">
+    <span class="sb-time">9:41</span>
+    <span class="sb-levels">
+      <svg width="19.2" height="12.23" viewBox="0 0 19.2 12.23"><rect x="0" y="7.6" width="3.2" height="4.63" rx="0.9"/><rect x="5.33" y="5.3" width="3.2" height="6.93" rx="0.9"/><rect x="10.67" y="2.65" width="3.2" height="9.58" rx="0.9"/><rect x="16" y="0" width="3.2" height="12.23" rx="0.9"/></svg>
+      <svg width="17.14" height="12.33" viewBox="0 0 17.14 12.33"><path d="M8.57 2.53c2.33 0 4.45.9 6.04 2.37a.4.4 0 0 0 .56-.01l1.15-1.16a.4.4 0 0 0 0-.57A11.3 11.3 0 0 0 8.57 0 11.3 11.3 0 0 0 .68 3.16a.4.4 0 0 0 0 .57l1.15 1.16c.15.15.4.16.56.01a8.9 8.9 0 0 1 6.18-2.37Zm0 3.8c1.28 0 2.45.47 3.36 1.25.16.14.4.13.55-.02l1.15-1.16a.4.4 0 0 0-.01-.58 7.5 7.5 0 0 0-10.1 0 .4.4 0 0 0-.01.58l1.15 1.16c.15.15.39.16.55.02a5.1 5.1 0 0 1 3.36-1.25Zm2.3 2.6a.4.4 0 0 0-.02-.58 3.5 3.5 0 0 0-4.56 0 .4.4 0 0 0-.02.58l2.01 2.03c.16.16.41.16.57 0z"/></svg>
+      <svg width="27.33" height="13.67" viewBox="0 0 27.33 13.67"><rect x="0.5" y="0.5" width="24" height="12.67" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="2" y="2" width="10.5" height="9.67" rx="2.5"/><path d="M26 4.6v4.47c.8-.34 1.33-1.2 1.33-2.23S26.8 4.94 26 4.6Z" fill-opacity=".4"/></svg>
+    </span>
+  </template>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/CustomEase.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
